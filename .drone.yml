@@ -1,0 +1,19 @@
+kind: pipeline
+type: docker
+name: default
+
+steps:
+
+- name: build-image
+  image: plugins/docker
+  settings:
+    repo: hello-node
+
+- name: publish  
+  image: plugins/gcr
+  settings:
+    registry: us.gcr.io
+    repo: hello-node
+    tags: latest
+    json_key:
+      from_secret: dockergcrio
